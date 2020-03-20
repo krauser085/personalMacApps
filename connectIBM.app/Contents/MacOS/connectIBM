@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# show Notification
+osascript -e 'display notification "Connecting To IBM Network.." with title "IBM Connection"'
+
+# connect to cisco VPN for IBM Network
+/opt/cisco/anyconnect/bin/vpn connect JAPAN
+
+# check status
+/opt/cisco/anyconnect/bin/vpn state | grep Connected
+
+if [ $? -eq 0 ]; then
+	
+	osascript -e 'display notification "Connected on IBM Network!" with title "IBM Connection"'
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  \
+		https://w3.ibm.com/\#/
+else
+	osascript -e 'display notification "Connection Failed ;(" with title "IBM Connection"'
+fi

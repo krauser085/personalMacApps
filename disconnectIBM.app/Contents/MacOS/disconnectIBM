@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# connect to cisco VPN for IBM Network
+/opt/cisco/anyconnect/bin/vpn disconnect
+
+# check status
+/opt/cisco/anyconnect/bin/vpn state | grep Disconnected
+
+if [ $? -eq 0 ]; then
+	osascript -e 'display notification "Disconnected!" with title "IBM Connection"'
+else
+	osascript -e 'display notification "failed to disconnect" with title "IBM Connection"'
+fi
